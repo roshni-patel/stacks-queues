@@ -21,3 +21,4 @@ class Stack
     return @store.to_s
   end
 end
+
