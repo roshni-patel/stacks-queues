@@ -13,6 +13,10 @@ class Stack
     return item
   end
 
+  def peek
+    return @store.head.data
+  end
+
   def empty?
     return @store.empty?
   end
@@ -21,4 +25,3 @@ class Stack
     return @store.to_s
   end
 end
-

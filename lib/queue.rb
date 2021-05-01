@@ -9,18 +9,30 @@ class Queue
 
   # O(1) to add and remove 
   def enqueue(element)
-    # queue is empty 
     if @front == -1
       @front = 0
       @back = 0
-    elsif @front == 0 && @back == BUFFER_SIZE || @back == @front
+    elsif @back == @front
       raise ArgumentError.new("Queue is full")   
-    elsif @back == BUFFER_SIZE # gone past the end of the array 
-      @back = 0
     end
     @store[@back] = element 
-    @back = @back + 1 
+    @back = (@back + 1) % BUFFER_SIZE
   end
+
+  # another solution
+  # def enqueue(element)
+  #   # queue is empty 
+  #   if @front == -1
+  #     @front = 0
+  #     @back = 0
+  #   elsif @front == 0 && @back == BUFFER_SIZE 
+  #     raise ArgumentError.new("Queue is full")   
+  #   elsif @back == BUFFER_SIZE # gone past the end of the array 
+  #     @back = 0
+  #   end
+  #   @store[@back] = element 
+  #   @back = @back + 1 
+  # end
 
   def dequeue
     if (@front == -1)
@@ -29,23 +41,46 @@ class Queue
 
     data = @store[@front]
     @store[@front] = nil 
-    @front = @front + 1 
+    @front = (@front + 1) % BUFFER_SIZE
 
-    if @front == @back # nothing left in list 
+    if @front == @back # nothing left, empty
       @front = -1 
       @back = -1 
-    elsif @front == BUFFER_SIZE
-      @front = 0
     end 
     return data 
   end
+
+  # another solution
+  # def dequeue
+  #   if (@front == -1)
+  #     raise ArgumentError.new("Queue is empty")
+  #   end 
+
+  #   data = @store[@front]
+  #   @store[@front] = nil 
+  #   @front = @front + 1 
+
+  #   if @front == @back # nothing left in list 
+  #     @front = -1 
+  #     @back = -1 
+  #   elsif @front == BUFFER_SIZE
+  #     @front = 0
+  #   end 
+  #   return data 
+  # end
 
   def front
     return @store[@front]
   end
 
+  
   def size
     return 0 if @front == -1
+    if @front < @back
+      @back - @front 
+    else
+      BUFFER_SIZE - @front + @back 
+    end
   end
 
   def empty?
