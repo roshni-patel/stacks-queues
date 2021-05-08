@@ -7,7 +7,7 @@ class Queue
     @back = -1
   end
 
-  # O(1) to add and remove 
+  
   def enqueue(element)
     if @front == -1
       @front = 0
@@ -73,7 +73,6 @@ class Queue
     return @store[@front]
   end
 
-  
   def size
     return 0 if @front == -1
     if @front < @back

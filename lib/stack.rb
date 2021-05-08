@@ -13,8 +13,28 @@ class Stack
     return item
   end
 
+  # A Stack might also implement a peek method which returns,
+  # but does not remove the item on top of the stack,
+  # and size which would return the number of items on the stack.
   def peek
-    return @store.head.data
+    return @store.get_first
+
+    # return nil if @head.nil?
+    # return @head.data
+  end
+
+  def size
+    return @store.length 
+
+    # return 0 if @store.head.nil? 
+    # current = @store.head 
+    # length = 0
+
+    # while current 
+    #   length += 1 
+    #   current = current.next
+    # end
+    # return length 
   end
 
   def empty?
